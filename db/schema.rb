@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_21_104002) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_23_095928) do
+  create_table "event_attendances", force: :cascade do |t|
+    t.integer "attended_events_id", null: false
+    t.integer "attendees_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attended_events_id"], name: "index_event_attendances_on_attended_events_id"
+    t.index ["attendees_id"], name: "index_event_attendances_on_attendees_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "creator_id"
@@ -34,5 +43,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_21_104002) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "event_attendances", "events", column: "attended_events_id"
+  add_foreign_key "event_attendances", "users", column: "attendees_id"
   add_foreign_key "events", "users", column: "creator_id"
 end
