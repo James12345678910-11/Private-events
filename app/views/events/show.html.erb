@@ -1,7 +1,23 @@
 <h1><%= @event.title %></h1>
-<p><%= @event.description %></p>
-<p><%= @event.location %></p>
-<p><%= @event.date %></p>
-<p>Created by <%= @event.creator.email %></p>
+<p><strong>Description:</strong> <%= @event.description %></p>
+<p><strong>Location:</strong> <%= @event.location %></p>
+<p><strong>Date:</strong> <%= @event.date %></p>
+<p><strong>Created by:</strong> <%= link_to @event.creator.email, user_path(@event.creator) %></p>
 
-<%= button_to "Attend Event", event_event_attendances_path(@event), method: :post %>
+<hr>
+
+<h3>Attendees</h3>
+
+<% if @attendees.any? %>
+  <ul>
+    <% @attendees.each do |attendee| %>
+      <li><%= link_to attendee.email, user_path(attendee) %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No attendees yet.</p>
+<% end %>
+
+<% unless @attendees.include?(current_user) %>
+  <%= button_to "Attend Event", event_event_attendances_path(@event), method: :post %>
+<% end %>

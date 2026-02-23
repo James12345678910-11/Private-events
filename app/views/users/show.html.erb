@@ -17,3 +17,27 @@
 <% else %>
   <p>This user hasn't created any events yet.</p>
 <% end %>
+
+<% if @attended_events.any? %>
+  <h2>Events Attending:</h2>
+  <ul>
+    <% @attended_events.each do |event| %>
+      <li>
+        <strong><%= link_to event.title, event_path(event) %></strong>
+        <br>
+        Location: <%= event.location %>
+        <br>
+        Date: <%= event.date.strftime("%B %d, %Y at %I:%M %p") %>
+      </li>
+    <% end %>
+  </ul>
+
+  <h2>Upcoming Events</h2>
+<% @attended_events.select { |e| e.date >= Time.now }.each do |event| %>
+  <p><%= event.title %> - <%= event.date %></p>
+<% end %>
+
+<h2>Past Events</h2>
+<% @attended_events.select { |e| e.date < Time.now }.each do |event| %>
+  <p><%= event.title %> - <%= event.date %></p>
+<% end %>
