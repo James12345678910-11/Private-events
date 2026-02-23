@@ -8,4 +8,8 @@ Rails.application.routes.draw do
  resources :events do
   resources :event_attendances, only: [ :create ]
 end
+
+resources :events do
+  resources :event_invitations, only: [:create]
+end
 end
