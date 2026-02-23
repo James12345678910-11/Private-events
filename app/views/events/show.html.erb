@@ -1,0 +1,7 @@
+<h1><%= @event.title %></h1>
+<p><%= @event.description %></p>
+<p><%= @event.location %></p>
+<p><%= @event.date %></p>
+<p>Created by <%= @event.creator.email %></p>
+
+<%= button_to "Attend Event", event_event_attendances_path(@event), method: :post %>
