@@ -20,7 +20,11 @@ class EventsController < ApplicationController
     end
 
     def show
-        @event = Event.find(params[:id])
+    @event = Event.find(params[:id])
+
+        if @event.private? && !(@event.creator == current_user || @event.invited_users.include?(current_user))
+            redirect_to events_path, alert: "You are not invited to this private event."
+        end
     end
 
     private

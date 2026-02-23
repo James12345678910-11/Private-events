@@ -10,4 +10,8 @@ class Event < ApplicationRecord
   scope :past, -> { where("date < ?", Time.current).order(date: :desc) }
   scope :upcoming, -> { where("date >= ?", Time.current).order(date: :asc) }
 
+   # Invitations
+  has_many :invitations
+  has_many :invited_users, through: :invitations, source: :user
+
 end
