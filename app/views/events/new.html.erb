@@ -21,5 +21,13 @@
     <%= f.datetime_local_field :date %>
   </div>
 
+  <% if current_user == @event.creator %>
+  <h3>Invite Users</h3>
+  <%= form_with url: event_invitations_path(@event), method: :post do |f| %>
+    <%= collection_check_boxes(:event, :user_ids, User.all.where.not(id: current_user.id), :id, :email) %>
+    <%= f.submit "Send Invitations" %>
+  <% end %>
+<% end %>
+
   <%= f.submit "Create Event" %>
 <% end %>
