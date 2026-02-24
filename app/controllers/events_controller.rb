@@ -29,10 +29,34 @@ class EventsController < ApplicationController
         end
     end
 
+    def edit
+    end
+
+    def update
+        if @event.update(event_params)
+            redirect_to @event
+        else
+            render :edit
+        end
+    end
+
+    def destroy
+        @event.destroy
+        redirect_to events_path
+    end
+
+    def set_event
+         @event = Event.find(params[:id])
+    end
+
+    def toggle_privacy
+        @event.update(private: !@event.private)
+    end
+
     private
 
     def event_params
-        params.require(:event).permit(:title, :description, :location, :date)
+        params.require(:event).permit(:title, :description, :location, :date, :private)
     end
 
 
