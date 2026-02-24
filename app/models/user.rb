@@ -17,4 +17,4 @@ class User < ApplicationRecord
   has_many :invitations
   has_many :invited_events, through: :invitations, source: :event
 end
-end
+
