@@ -12,4 +12,6 @@ end
 resources :events do
   resources :event_invitations, only: [:create]
 end
+
+resources :event_attendances, only: [:create, :destroy]
 end
