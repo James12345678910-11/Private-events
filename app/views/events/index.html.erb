@@ -4,21 +4,50 @@
 
 <hr>
 
-<% @events.each do |event| %>
-  <div>
-    <h3><%= link_to event.title, event_path(event) %></h3>
+<h2>Upcoming Events</h2>
+<% if @upcoming_events.any? %>
+  <% @upcoming_events.each do |event| %>
+    <div>
+      <h3><%= link_to event.title, event_path(event) %></h3>
 
-    <p><strong>Description:</strong> <%= event.description %></p>
+      <p><strong>Description:</strong> <%= event.description %></p>
 
-    <p><strong>Location:</strong> <%= event.location %></p>
+      <p><strong>Location:</strong> <%= event.location %></p>
 
-    <p><strong>Date:</strong> <%= event.date %></p>
+      <p><strong>Date:</strong> <%= event.date %></p>
 
-    <p>
-      <strong>Creator:</strong>
-      <%= link_to event.creator.email, user_path(event.creator) %>
-    </p>
+      <p>
+        <strong>Creator:</strong>
+        <%= link_to event.creator.email, user_path(event.creator) %>
+      </p>
 
-    <hr>
-  </div>
+      <hr>
+    </div>
+  <% end %>
+<% else %>
+  <p>No upcoming events.</p>
+<% end %>
+
+<h2>Past Events</h2>
+<% if @past_events.any? %>
+  <% @past_events.each do |event| %>
+    <div>
+      <h3><%= link_to event.title, event_path(event) %></h3>
+
+      <p><strong>Description:</strong> <%= event.description %></p>
+
+      <p><strong>Location:</strong> <%= event.location %></p>
+
+      <p><strong>Date:</strong> <%= event.date %></p>
+
+      <p>
+        <strong>Creator:</strong>
+        <%= link_to event.creator.email, user_path(event.creator) %>
+      </p>
+
+      <hr>
+    </div>
+  <% end %>
+<% else %>
+  <p>No past events.</p>
 <% end %>
